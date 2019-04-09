@@ -1,0 +1,64 @@
+{% load cms_tags menu_tags sekizai_tags %}
+<!doctype html>
+<html>
+    <head>
+        <title>{% block title %}This is my new project home page{% endblock title %}</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <style type="text/css">
+            .nav {
+                padding-left: 0;
+            }
+            .nav li {
+                display: inline;
+                list-style-type: none;
+                padding-right: 20px;
+            }
+            .container {
+                width: 100%;
+                margin: 0 auto
+            }
+            .content {
+                float: left;
+                width: 80%;
+            }
+            .sidebar {
+                float: left;
+                width: 20%;
+            }
+        </style>
+        {% render_block "css" %}
+
+        {% load static %}
+        <script src="{% static '/polls/script.js' %}"></script>
+        <link rel="stylesheet" href="{% static '/polls/style.css' %}">
+    </head>
+
+    <body>
+        {% cms_toolbar %}
+        <div class="container">
+            <div style="overflow: hidden; background: linear-gradient(to bottom, rgba(84,149,255, 0.8), rgba(0,53,140, 1)); width: 100%; height: 50px;">
+            <div style="overflow: hidden;opacity: 0.2; background: url({% static "/polls/images/pattern8.png" %}) repeat center center !important; width: 100%; height: 50px;">
+            </div>
+            <div style="position: absolute;left:50px;top: 16px;color: #ffffff; font-family: arial, helvetica, sans-serif;font-size: 14px;">
+            	<strong>{{user.get_username}}</strong>
+            </div>
+
+            <div style="position: absolute;margin: auto;width: 99%;color: #ffffff;top: 6px">
+            <h3 style="text-align: center; margin:5px 0px;"><strong><span style="font-family: arial, helvetica, sans-serif;">Curso para Capacitação de ICC</span></strong></h3>
+            </div>
+
+            <div style="position: absolute;right:50px;top: 16px;">
+            <strong><a style="text-decoration:none;color: #ffffff; font-family: arial, helvetica, sans-serif;font-size: 14px;" href="/logout/">Sair</a></strong>
+            </div>
+            </div>
+            {% block content %}{% endblock content %}
+        </div>
+        {% render_block "js" %}
+    </body>
+	<footer>
+		<center>Copyright &copy; UnB</center>
+
+		<center>Campus Universit&aacute;rio Darcy Ribeiro - Bras&iacute;lia - DF</center>
+	</footer>
+</html>
+<br><br>

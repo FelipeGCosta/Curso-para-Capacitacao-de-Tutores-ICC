@@ -1,0 +1,118 @@
+
+
+
+<!-- templates/base.html -->
+
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Capacitação de ICC</title>
+
+<meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+{% load static %}
+<script src="{% static '/polls/script.js' %}"></script>
+<link rel="stylesheet" href="{% static '/polls/style.css' %}">
+
+</head>
+<body>
+  <main>
+
+<div style="overflow: hidden; background: linear-gradient(to bottom, rgba(84,149,255, 0.8), rgba(0,53,140, 1)); width: 100%; height: 40px;">
+<div style="overflow: hidden;opacity: 0.2; background: url({% static "/polls/images/pattern8.png" %}) repeat center center !important; width: 100%; height: 40px;">
+</div>
+<div style="position: absolute;left:50px;top: 20px;color: #ffffff; font-family: arial, helvetica, sans-serif;font-size: 14px;">
+<strong>{{user.get_username}}</strong>
+</div>
+
+<div style="position: absolute;margin: auto;width: 99%;color: #ffffff;top: 8px">
+<h3 style="text-align: center; margin:5px 0px;"><strong><span style="font-family: arial, helvetica, sans-serif;">Curso para Capacitação de ICC</span></strong></h3>
+</div>
+
+<div style="position: absolute;right:50px;top: 20px;">
+<strong><a style="text-decoration:none;color: #ffffff; font-family: arial, helvetica, sans-serif;font-size: 14px;" href="../../logout/">Sair</a></strong>
+</div>
+
+</div>
+
+<table border="0" style="width: 20%; height: 83px; float: left;">
+<tbody>
+
+<tr>
+<td><br />
+<div class="bar-block" style="background-color: #f1f1f1;">
+<!-- <span><center><img src="{% static "/polls/images/myIcon2.png" %}"  style="padding: 5px" alt="Capacitação" height="42" width="42";" /></center></span> -->
+<span><center><img src="/static/polls/images/myIcon2.png"  style="padding: 5px" alt="Capacitação" height="42" width="42";" /></center></span>
+
+{% block quant %}
+
+{% endblock %}
+
+<div style="background-color: #d4d4d4;"><span><a href="../" class="bar-item" data-toggle="tab">Voltar</a></span></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<table border="0" style="width: 80%; height: 83px; float: left;">
+<tbody>
+<tr>
+<td>
+<div class="tab-content" style="width: auto; float: left; padding: 30px;">
+
+
+
+<div class="container">
+{% block content %}
+    {% block polls_content %}
+    {% endblock %}
+
+{% endblock %}
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+
+
+<footer>
+    <center>Copyright © UnB</center>
+    <center>Campus Universitário Darcy Ribeiro - Brasília - DF</center>
+</footer>
+
+
+
+
+
+
+
+
+
+
+  </main>
+</body>
+</html>
+
+

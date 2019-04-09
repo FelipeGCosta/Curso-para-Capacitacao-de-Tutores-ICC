@@ -1,0 +1,87 @@
+<!-- templates/registration/login.html -->
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #0098e0;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.imgcontainer {
+    text-align: center;
+    margin: 12px 0 12px 0;
+}
+
+img.avatar {
+    width: 25%;
+    height: 25%;
+    border-radius: 50%;
+}
+
+.allcontainer{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 400px;
+    padding: 2% 2% 2% 2%;
+    box-shadow: #0098e0 4px 4px 2px;
+}
+
+.containerbot{
+    text-align:right;
+    padding-top: 5%;
+}
+
+</style>
+{% load staticfiles %}
+</head>
+<body>
+
+<form method="post">
+  <div class="allcontainer" style="background-color:#f1f1f1">
+    <div class="imgcontainer">
+      {% load static %} <img src="{% static "/polls/images/myIcon.png" %}" style="width: 25%;height: 20%;border-radius: 50%;" />
+    </div>
+
+    <div class="container">
+
+      {% csrf_token %}
+      {{ form.as_p }}
+          
+      <button type="submit">Entrar</button>
+    </div>
+  </div>
+
+</form>
+
+</body>
+</html>
+

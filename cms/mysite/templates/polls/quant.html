@@ -1,0 +1,144 @@
+<!--
+
+<table border="0" style="width: 80%; height: 83px; float: left;">
+	<tbody>
+		<tr>
+			<td>
+			<div class="tab-content" style="width: auto; float: left; padding: 30px;">
+			<div class="container tab-pane active" id="menu1">
+			<h3><span>In&iacute;cio</span></h3>
+
+			<h6>Nesta se&ccedil;&atilde;o iremos aprender e/ou pegas as melhores pr&aacute;ticas na utiliza&ccedil;&atilde;o e configura&ccedil;&atilde;o do Piazza, f&oacute;rum que iremos utilizar para solucionar d&uacute;vidas dos alunos e debater quest&otilde;es sobre os exerc&iacute;cios de forma virtual.</h6>
+
+			<h6>A parte de configura&ccedil;&atilde;o &eacute; exclusiva para alguns candidatos, podendo n&atilde;o estar dispon&iacute;vel para voc&ecirc;.</h6>
+
+			<p><span>&quot;O Piazza Q &amp; A &eacute; o produto de discuss&atilde;o em sala de aula que 50.000 professores t&ecirc;m usado desde 2011 em mais de 2.000 universidades e 90 pa&iacute;ses. O Piazza Q &amp; A &eacute; governada pela FERPA - nem os dados dos alunos nem o conte&uacute;do da turma s&atilde;o compartilhados com terceiros, e esses dados s&atilde;o protegidos pela FERPA. O Piazza Network &eacute; um produto voltado para carreiras. Os alunos t&ecirc;m a capacidade (mas n&atilde;o o requisito) de participar da Rede Piazza (por meio de um processo de sele&ccedil;&atilde;o ativo) como parte do fluxo de inscri&ccedil;&atilde;o do Piazza. Ap&oacute;s a inscri&ccedil;&atilde;o, os alunos podem optar por n&atilde;o participar a qualquer momento.&quot;</span> [<a href="http://piazza.com/" target="_blank">piazza</a>]</p>
+
+			<h6>Vamos l&aacute;?</h6>
+
+			<div class="testbtn btnright"><a data-toggle="tab" href="utilizacao" style="text-decoration: none; color: black;">Pr&oacute;xima p&aacute;gina</a></div>
+			</div>
+			</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+
+<!-- -->
+
+
+
+{% extends 'base.html' %}
+
+
+{% block title %}Capacitação de ICC{% endblock %}
+
+
+
+{% block content %}
+
+<table border="0" style="width: 20%; height: 83px; float: left;">
+	<tbody>
+		<tr>
+			<td>&nbsp;
+			<div class="bar-block" style="background-color: #f1f1f1;">
+			<center><span><img alt="Capacitação" height="42" src="http://localhost/static/polls/images/myIcon2.png" style="padding: 5px;" width="42" /></span></center>
+
+{% block quant %}
+	{% for vezes in quant %}
+
+		<form method="post" name="testnum" value="{{quant}}" style="margin-bottom: 0px">
+		{% csrf_token %} <!-- Passar token pelo método POST -->
+
+		<center><span><a href="/polls/{{vezes}}/" class="bar-item {% if vezes == question.id %} colored {% endif %}" data-toggle="tab">Questão {{ forloop.counter }}</a></span></center>
+		</form>
+
+	{% endfor %}
+{% endblock %}
+
+			<div style="background-color: #d4d4d4;"><span><a class="bar-item" data-toggle="tab" href="../">Voltar</a></span></div>
+
+			</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+
+
+
+<h3><span>{{ question.question_text }}</span></h3>
+{% if error_message %}
+	<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+<form action="" method="post">
+{% csrf_token %}
+
+{% for choice in question.choice_set.all %}
+    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
+{% endfor %}
+
+<br>
+
+
+
+{% for num in question.quant %}
+	{% if num == question.id %}
+		{% with question.quant|last as last %}
+		{% with question.quant|slice:":-1" as slice %}
+
+
+			{% if num == last %}
+				<div class="tab-pane">
+					<div class="testbtn" style="right:100px;">
+						<a href="#" style="text-decoration:none;color:black;" data-toggle="tab">Enviar</a>
+					</div>
+
+				<!-- Último elemento da lista: {{ last }} -->
+			{% else %}
+
+					<div class="testbtn" style="right:100px;">
+						<a href="javascript:slice('{{question.id}}', '{{question.quant}}', 0)" style="text-decoration:none;color:black;" data-toggle="tab">Próxima página</a>
+					</div>
+
+			{% endif %}
+		{% endwith %}
+		{% endwith %}
+
+		{% with question.quant|first as first %}
+		{% with question.quant|slice:":-1" as slice %}
+			{% if num != first %}
+
+					<div id="eu" class="testbtn active" style="left:100px; position: static;">
+						<a href="javascript:slice('{{question.id}}', '{{question.quant}}', 1)" style="text-decoration:none;color:black;" data-toggle="tab">Página anterior</a>
+					</div>
+				</div>
+			{% endif %}
+		{% endwith %}
+		{% endwith %}
+
+	{% endif %}
+{% endfor %}
+
+
+
+<h3><span>Operação</span></h3>
+<br>
+<h6><b>Questões:</b> Para acessar as questões clique nas opções "Questão X" do menu ao lado esquerdo, sendo 'X' o número da questão.</h6>
+<h6>Você pode navegar também através dos botões que aparecerão abaixo, clicando em "Próxima Página" ou "Página Anterior".</h6>
+<h6><b>Enviar:</b> Para enviar todas as respostas você deve ir até a última questão e clicar no botão "Enviar", no canto inferior direito.</h6>
+<h6><b>Voltar:</b> Para voltar à página principal, a qualquer momento, clique na última opção do menu ao lado.</h6>
+<br>
+<h6>Lembre-se: Você poderá enviar quantas tentativas quiser.</h6>
+
+
+{% endblock %}
+
+
+
+
+
+
+<!-- -->

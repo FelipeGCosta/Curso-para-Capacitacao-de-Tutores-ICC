@@ -1,0 +1,265 @@
+<!--
+
+<table border="0" style="width: 80%; height: 83px; float: left;">
+	<tbody>
+		<tr>
+			<td>
+			<div class="tab-content" style="width: auto; float: left; padding: 30px;">
+			<div class="container tab-pane active" id="menu1">
+			<h3><span>In&iacute;cio</span></h3>
+
+			<h6>Nesta se&ccedil;&atilde;o iremos aprender e/ou pegas as melhores pr&aacute;ticas na utiliza&ccedil;&atilde;o e configura&ccedil;&atilde;o do Piazza, f&oacute;rum que iremos utilizar para solucionar d&uacute;vidas dos alunos e debater quest&otilde;es sobre os exerc&iacute;cios de forma virtual.</h6>
+
+			<h6>A parte de configura&ccedil;&atilde;o &eacute; exclusiva para alguns candidatos, podendo n&atilde;o estar dispon&iacute;vel para voc&ecirc;.</h6>
+
+			<p><span>&quot;O Piazza Q &amp; A &eacute; o produto de discuss&atilde;o em sala de aula que 50.000 professores t&ecirc;m usado desde 2011 em mais de 2.000 universidades e 90 pa&iacute;ses. O Piazza Q &amp; A &eacute; governada pela FERPA - nem os dados dos alunos nem o conte&uacute;do da turma s&atilde;o compartilhados com terceiros, e esses dados s&atilde;o protegidos pela FERPA. O Piazza Network &eacute; um produto voltado para carreiras. Os alunos t&ecirc;m a capacidade (mas n&atilde;o o requisito) de participar da Rede Piazza (por meio de um processo de sele&ccedil;&atilde;o ativo) como parte do fluxo de inscri&ccedil;&atilde;o do Piazza. Ap&oacute;s a inscri&ccedil;&atilde;o, os alunos podem optar por n&atilde;o participar a qualquer momento.&quot;</span> [<a href="http://piazza.com/" target="_blank">piazza</a>]</p>
+
+			<h6>Vamos l&aacute;?</h6>
+
+			<div class="testbtn btnright"><a data-toggle="tab" href="utilizacao" style="text-decoration: none; color: black;">Pr&oacute;xima p&aacute;gina</a></div>
+			</div>
+			</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+
+<!-- -->
+
+
+
+{% extends 'base.html' %}
+
+
+{% block title %}Capacitação de ICC{% endblock %}
+
+
+{% block content %}
+
+
+
+<table border="0" style="width: 20%; height: 83px; float: left;">
+	<tbody>
+		<tr>
+			<td>&nbsp;
+			<div class="bar-block" style="background-color: #f1f1f1;">
+			<center><span><img alt="Capacitação" height="42" src="/static/polls/images/myIcon2.png" style="padding: 5px;" width="42" /></span></center>
+
+{% block quant %}
+
+	<center><span><a href="javascript:myFunction4('menu0', '0', '0');" class="bar-item colored" data-toggle="tab">Início</a></span></center>
+
+	{% for vezes in quant %}
+		<center><span><a href="javascript:myFunction4('menu{{ forloop.counter }}', '{{ forloop.counter }}', '0');" class="bar-item" data-toggle="tab">Questão {{ forloop.counter }}</a></span></center>
+		<!-- <span><a onclick="myFunction2('menu2', '2')" class="bar-item" data-toggle="tab">Questão 2</a></span> -->
+
+	{% endfor %}
+{% endblock %}
+
+			<div style="background-color: #d4d4d4;"><span><a class="bar-item" data-toggle="tab" href="../">Voltar</a></span></div>
+
+			</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+
+<div class="tab-content container" style="width: 76%; float: left; padding: 2%;">
+
+<form action="../send/" method="post">
+{% for vezes in quantQuest %}
+
+	<div id="menu{{ forloop.counter }}"  class="tab-pane source">
+	<h3><span>Questão {{ forloop.counter }}</span></h3>
+	<h6><span></span></h6><br>
+	
+
+	{% load index %}
+	<h6>{{ quant|index:vezes }}</h6>
+
+		{% if testnum != '12' and testnum != '13' and testnum != '14' and testnum != '15' and testnum != '16' and testnum != '17' and testnum != '18' %}
+			{% for num in len|index:vezes %}
+				<span><input type="radio" name="q{{e|index:vezes}}" value="{{ forloop.counter }}">{{ f|index:vezes|index:num }}</span><br><br>
+		  <!-- <div class="testbtn" style="right:100px">
+		  	<a onclick="myFunction4('menu2', '2')" href="#" style="text-decoration:none;color:black;" data-toggle="tab">Próxima página</a>
+		  </div> -->
+		  	{% endfor %}
+		{% else %}
+				<br>
+				{% for num in len|index:vezes %}
+					{% if forloop.counter == 1 %}
+						<span>Pouco&emsp;</span>
+					{% endif %}
+					<span><input type="radio" name="q{{e|index:vezes}}" value="{{ forloop.counter }}">{{ f|index:vezes|index:num }}&emsp;</span>
+					{% if forloop.last %}
+						<span>&nbsp;Muito</span>
+					{% endif %}
+				{% empty %}
+					<textarea rows="8" name="c{{e|index:vezes}}" maxlength="255" placeholder="Insira sua resposta..."></textarea>
+					*Tamanho máximo: 255 caracteres.
+			  	{% endfor %}
+			  	<br>
+		{% endif %}
+
+
+	<br>
+	{% if forloop.counter0 != quantQuest|index:0 %}
+		<h10><div class="testbtn">
+			<a href="javascript:void();" onclick="myFunction4('menu{{ forloop.counter0 }}', '{{ forloop.counter }}', '1')" style="text-decoration:none;color:black;" data-toggle="tab">Página anterior</a>
+		</div></h10>
+	{% endif %}
+	{% if forloop.counter0 != quantQuest|index:-1 %}
+		<div class="testbtn btnright">
+			<span><a href="javascript:void();" onclick="myFunction4('menu{{ forloop.counter0 }}', '{{ forloop.counter }}', '2')" style="text-decoration:none;color:black;" data-toggle="tab">Próxima página</a></span>
+		</div>
+	{% endif %}
+	{% if forloop.counter0 == quantQuest|index:-1 %}
+		<!-- <div class="testbtn" style="right:100px">
+			<a style="text-decoration:none;color:black;" data-toggle="tab">Enviar tudo e terminar</a>
+		</div> -->
+		<div>
+			<input type="hidden" name="id" value="{{user.id}}">
+			<input type="hidden" name="test" value="{{ testnum }}">
+			<button class="testbtn btnright">Finalizar tentativa</button>
+			<!-- <span><input type="submit" style="color:black;border: 0px;background-color: transparent;cursor:pointer;" value="Finalizar tentativa"></span> -->
+		</div>
+	{% endif %}
+
+	</div>
+
+{% endfor %}
+
+
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% load percent %}
+<div id="menu0"  class="tab-pane active">
+
+<h3><span>Operação</span></h3>
+<br>
+<h6><b>Questões:</b> Para acessar as questões clique nas opções "Questão X" do menu ao lado esquerdo, sendo 'X' o número da questão.</h6>
+<h6>Você pode navegar também através dos botões que aparecerão abaixo, clicando em "Próxima Página" ou "Página Anterior".</h6>
+<h6><b>Enviar:</b> Para enviar todas as respostas você deve ir até a última questão e clicar no botão "Enviar", no canto inferior direito.</h6>
+<h6><b>Voltar:</b> Para voltar à página principal, a qualquer momento, clique na última opção do menu ao lado.</h6>
+<br>
+
+{% if testnum != '12' and testnum != '13' and testnum != '14' and testnum != '15' and testnum != '16' and testnum != '17' and testnum != '18' %} <!-- Retirar do questionário -->
+
+<h6>Lembre-se: Você poderá enviar quantas tentativas quiser.</h6>
+<br>
+<div class="proofcontainer" style="background-color: #f1f1f1;border-style: dashed; border-color: #0094db; border-width: 1px;">
+<center><h6>Método de avaliação: Nota mais alta</h6></center>
+<center><h6>Porcentagem mínima para aprovação: 80%</h6></center>
+<center><h6>Minha nota: {% if grade == None %}0{% else %}{{grade}}{% endif %}/{% if not quantQuest %}0&ensp;-&ensp;0%{% else %}{% for i in quantQuest %}{% if forloop.last %}{{ forloop.counter }}&ensp;-&ensp;{% if grade == None %}0{% else %}{{ grade|percent:forloop.counter }}{% endif %}%{% endif %}{% endfor %}{% endif %}</h6></center>
+</div>
+</div>
+
+{% else %}
+
+{% if testnum == '12' %}
+
+<h6>Questionário retirado do artigo:</h6>
+<ul>
+<li><h6>BORGES, João Paulo Fonseca et al . Diagnóstico de competências individuais de tutores que atuam na modalidade a distância. Educ. Pesqui.,  São Paulo ,  v. 40, n. 4, p. 935-951,  dez.  2014 .   Disponível em <http://www.scielo.br/scielo.php?script=sci_arttext&pid=S1517-97022014000400005&lng=pt&nrm=iso>. acessos em  05  dez.  2018.  http://dx.doi.org/10.1590/s1517-97022014121642.</h6></li>
+</ul>
+<br>
+<h6>Em relação a sua atuação como tutor, responda a(s) questão(ões) a seguir:</h6>
+
+{% endif %}
+
+{% if testnum != '12' %}
+<h6>Em relação ao curso de capacitação, responda a(s) questão(ões) a seguir:</h6>
+{% endif %}
+
+{% endif %}
+
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+<!-- -->
+
+
+<h3><span>{{ question.question_text }}</span></h3>
+{% if error_message %}
+	<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+<form action="" method="post">
+{% csrf_token %}
+
+{% for choice in question.choice_set.all %}
+    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" />
+    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
+{% endfor %}
+
+<br>
+
+
+
+{% for num in question.quant %}
+	{% if num == question.id %}
+		{% with question.quant|last as last %}
+		{% with question.quant|slice:":-1" as slice %}
+
+
+			{% if num == last %}
+				<div class="tab-pane">
+					<div class="testbtn btnright">
+						<a href="#" style="text-decoration:none;color:black;" data-toggle="tab">Enviar</a>
+					</div>
+
+				<!-- Último elemento da lista: {{ last }} -->
+			{% else %}
+
+					<div class="testbtn btnright">
+						<a href="javascript:slice('{{question.id}}', '{{question.quant}}', 0)" style="text-decoration:none;color:black;" data-toggle="tab">Próxima página</a>
+					</div>
+
+			{% endif %}
+		{% endwith %}
+		{% endwith %}
+
+		{% with question.quant|first as first %}
+		{% with question.quant|slice:":-1" as slice %}
+			{% if num != first %}
+
+					<div id="eu" class="testbtn active" style="left:100px; position: static;">
+						<a href="javascript:slice('{{question.id}}', '{{question.quant}}', 1)" style="text-decoration:none;color:black;" data-toggle="tab">Página anterior</a>
+					</div>
+				</div>
+			{% endif %}
+		{% endwith %}
+		{% endwith %}
+
+	{% endif %}
+{% endfor %}
